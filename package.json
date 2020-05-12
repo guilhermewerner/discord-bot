@@ -1,0 +1,21 @@
+{
+    "name": "discord-bot",
+    "version": "0.1.0",
+    "description": "Discord Bot",
+    "repository": "https://github.com/GuiNerd/DiscordBot",
+    "author": "GuiNerd <guinerdinho@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "main": "src/index.js",
+    "scripts": {
+        "start": "nodemon src/index.js"
+    },
+    "dependencies": {
+        "discord.js": "^12.2.0",
+        "dotenv": "^8.2.0",
+        "ytdl-core": "^2.1.2"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.3"
+    }
+}
