@@ -1,5 +1,6 @@
 const ytdl = require('ytdl-core');
 const ffmpeg = require('ffmpeg');
+const timer = require('sleep');
 
 module.exports = {
     name: 'play',
@@ -67,6 +68,8 @@ module.exports = {
         const serverQueue = queue.get(guild.id);
 
         if (!song) {
+            timer.sleep(10);
+
             serverQueue.voiceChannel.leave();
             queue.delete(guild.id);
 
