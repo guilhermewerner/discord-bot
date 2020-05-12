@@ -16,6 +16,7 @@
         "ffmpeg": "^0.0.4",
         "fluent-ffmpeg": "^2.1.2",
         "opusscript": "^0.0.7",
+        "simple-youtube-api": "^5.2.1",
         "ytdl-core": "^2.1.2"
     },
     "devDependencies": {
