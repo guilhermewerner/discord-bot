@@ -40,10 +40,11 @@ client.once('disconnect', () => {
 client.on('message', async message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-    const args = message.content.slice(prefix.length).split(/ +/);
+    const args = message.content.slice(prefix.length).split(/ (.*)/);
     const command = args.shift().toLowerCase();
 
-    if (!client.commands.has(command)) return;
+    if (!client.commands.has(command))
+        message.reply('Please enter a valid command!');
 
     try {
         client.commands.get(command).execute(message, queue);
