@@ -22,10 +22,17 @@ const queue = new Map();
 
 client.once('ready', () => {
     console.log('Ready!');
+
+    client.user.setActivity(`${prefix}help`, {
+        type: 'PLAYING',
+        url: 'https://github.com/GuiNerd/DiscordBot'
+    });
 });
+
 client.once('reconnecting', () => {
     console.log('Reconnecting!');
 });
+
 client.once('disconnect', () => {
     console.log('Disconnect!');
 });
