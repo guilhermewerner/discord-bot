@@ -1,5 +1,7 @@
 require('dotenv/config');
 
+//pm2 start .\src\index.js --name "DiscordBot" -i max
+
 const fs = require('fs');
 const Discord = require('discord.js');
 
