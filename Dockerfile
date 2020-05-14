@@ -1,14 +1,14 @@
-FROM node:lts
+FROM node:alpine
 
-WORKDIR /usr/src/app
+WORKDIR /usr/discord-bot
 
 RUN apt-get update
 RUN apt-get install ffmpeg -y
 
 COPY package.json ./
 
-RUN npm install
+RUN yarn
 
 COPY . .
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
