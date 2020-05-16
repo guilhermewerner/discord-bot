@@ -48,7 +48,7 @@ You can host the bot on your own computer or use a service to keep it online 24/
 
 Anyone can submit a pull request and improve the project. New features comes soon.
 
-## Author
+### Author
 
 Guilherme Werner
 
