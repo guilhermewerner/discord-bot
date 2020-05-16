@@ -20,8 +20,8 @@ Create a .env file in the project root and add:
 
 ```
 PREFIX=+
-TOKEN={YOUR_DISCORD_TOKEN}
-YOUTUBE_API_KEY={YOUR_YOUTUBE_API_KEY}
+TOKEN=YOUR_DISCORD_TOKEN
+YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY
 ```
 
 ### Starting the Bot
@@ -54,4 +54,4 @@ Guilherme Werner
 
 ### Liscence
 
-This project is licensed under the [LICENSE.md](MIT License).
+This project is licensed under the MIT License.
