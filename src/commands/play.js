@@ -73,7 +73,7 @@ module.exports = {
                     url: songInfo.video_url
                 };
 
-                await this.addToQueue(message, queue, song, false);
+                return await this.addToQueue(message, queue, song, false);
             }
 
             // If the user entered a youtube video name
