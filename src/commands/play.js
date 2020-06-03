@@ -91,7 +91,7 @@ module.exports = {
             let str = '';
 
             for (let i = 0; i < videos.length; i++) {
-                str += `${i + 1}:** ${videos[i].title} \n`;
+                str += `${i + 1}: ${videos[i].title} \n`;
             }
 
             str += `\n0: Cancel \n`;
