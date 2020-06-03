@@ -28,7 +28,7 @@ client.once('ready', () => {
 
     client.user.setActivity(`${prefix}help`, {
         type: 'PLAYING',
-        url: 'https://github.com/GuiNerd/DiscordBot'
+        url: 'https://github.com/GuilhermeWerner/DiscordBot'
     });
 });
 
