@@ -77,20 +77,56 @@ module.exports = {
             }
 
             // If the user entered a youtube video name
-            const videos = await youtube.searchVideos(query, 1).catch(function () {
+            const videos = await youtube.searchVideos(query, 5).catch(function () {
                 return message.channel.send('There was a problem searching the video you requested!');
             });
 
             if (videos.length < 1)
                 return message.channel.send(`I had some trouble finding what you were looking for, please try again or be more specific`);
 
-            const songInfo = await ytdl.getInfo(videos[0].url);
-            const song = {
-                title: songInfo.title,
-                url: songInfo.video_url
-            };
+            /**
+             * Create music selection message
+             */
 
-            await this.addToQueue(message, queue, song, false);
+            let str = '';
+
+            for (let i = 0; i < videos.length; i++) {
+                str += `${i + 1}:** ${videos[i].title} \n`;
+            }
+
+            str += `\n0: Cancel \n`;
+
+            message.channel.send("```" + str + "```");
+
+            try {
+                message.channel.awaitMessages(
+                    (msg) => {
+                        return (msg.content > 0 && msg.content < 6) || msg.content === 0;
+                    },
+                    {
+                        max: 1,
+                        time: 60000,
+                        errors: ['time']
+                    }
+                ).then(async (res) => {
+                    const videoIndex = parseInt(res.first().content);
+
+                    //if (res.first().content === 0) 
+                        //return message.channel.send("Selection canceled!");
+
+                    const songInfo = await ytdl.getInfo(videos[videoIndex - 1].url);
+                    const song = {
+                        title: songInfo.title,
+                        url: songInfo.video_url
+                    };
+
+                    return await this.addToQueue(message, queue, song, false);
+                });
+            } catch (error) {
+                console.log(error);
+                
+                return message.channel.send('An error has occured when trying to get the video from youtube!');
+            }
         } catch (error) {
             console.log(error);
             message.channel.send(error.message);
