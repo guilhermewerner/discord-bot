@@ -1,6 +1,6 @@
 require('dotenv/config');
 
-//pm2 start .\src\index.js --name "Discord"
+//pm2 start ./src/index.js --name "Discord"
 
 //docker build -t dicord-bot .
 //docker run -d dicord-bot
