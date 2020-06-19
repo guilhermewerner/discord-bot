@@ -2,9 +2,6 @@ require('dotenv/config');
 
 //pm2 start ./src/index.js --name "Discord"
 
-//docker build -t dicord-bot .
-//docker run -d dicord-bot
-
 const fs = require('fs');
 const Discord = require('discord.js');
 
