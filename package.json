@@ -2,7 +2,7 @@
     "name": "discord-bot",
     "version": "1.1.0",
     "description": "Discord Bot",
-    "repository": "https://github.com/GuiNerd/DiscordBot",
+    "repository": "https://github.com/GuilhermeWerner/DiscordBot",
     "author": "GuiNerd <guinerdinho@gmail.com>",
     "license": "MIT",
     "private": true,
