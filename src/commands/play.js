@@ -77,17 +77,17 @@ module.exports = {
             }
 
             // If the user entered a youtube video name
-            const videos = await youtube.searchVideos(query, 1).catch(function () {
+            const videos = await youtube.searchVideos(query, 5).catch(function () {
                 return message.channel.send('There was a problem searching the video you requested!');
             });
 
-            if (videos.length < 1)
+            if (videos.length < 5)
                 return message.channel.send(`I had some trouble finding what you were looking for, please try again or be more specific`);
 
             /**
              * Create music selection message
              */
-            /*
+
             let str = '';
 
             for (let i = 0; i < videos.length; i++) {
@@ -97,9 +97,8 @@ module.exports = {
             str += `\n0: Cancel \n`;
 
             message.channel.send("```" + str + "```");
-            */
+
             try {
-                /*
                 message.channel.awaitMessages(
                     (msg) => {
                         return (msg.content > 0 && msg.content < 6) || msg.content === 0;
@@ -123,7 +122,7 @@ module.exports = {
 
                     return await this.addToQueue(message, queue, song, false);
                 });
-                */
+                /*
                 const songInfo = await ytdl.getInfo(videos[0].url);
                 const song = {
                     title: songInfo.title,
@@ -131,6 +130,7 @@ module.exports = {
                 };
 
                 return await this.addToQueue(message, queue, song, false);
+                */
             } catch (error) {
                 console.log(error);
 
