@@ -41,6 +41,7 @@ You can host the bot on your own computer or use a service to keep it online 24/
 | +skip                 | Skip current song               | +skip                                 |
 | +stop                 | Stop current queue              | +stop                                 |
 | +now                  | Get the name of current song    | +now                                  |
+| +list                 | Get the current playing list    | +list                                 |
 | +pause                | Pause playing music             | +pause                                |
 | +resume               | Unpause playing music           | +resume                               |
 
