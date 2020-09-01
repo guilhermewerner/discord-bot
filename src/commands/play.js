@@ -42,6 +42,7 @@ module.exports = {
                         url: songInfo.video_url,
                         thumbnail: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
                         author: songInfo.player_response.videoDetails.author,
+                        seconds: songInfo.length_seconds,
                     };
 
                     await this.addToQueue(message, queue, song, true);
@@ -73,6 +74,7 @@ module.exports = {
                     url: songInfo.video_url,
                     thumbnail: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
                     author: songInfo.player_response.videoDetails.author,
+                    seconds: songInfo.length_seconds,
                 };
 
                 return await this.addToQueue(message, queue, song, false);
@@ -83,24 +85,38 @@ module.exports = {
                 return message.channel.send('There was a problem searching the video you requested!');
             });
 
+            // Canot find 5 valid videos
             if (videos.length < 5)
                 return message.channel.send(`I had some trouble finding what you were looking for, please try again or be more specific`);
 
-            /**
-             * Create music selection message
-             */
+            /* MUSIC SELECTION MESSAGE */
 
             let str = '';
 
             for (let i = 0; i < videos.length; i++) {
-                str += `${i + 1}: ${videos[i].title} \n`;
+                str += `**[${i + 1}]**: ${videos[i].title} \n`;
             }
 
-            str += `\n0: Cancel \n`;
+            str += `\n**[0]**: Cancel \n`;
 
-            message.channel.send("```" + str + "```");
+            //message.channel.send("```" + str + "```");
+
+            const embedMessage = {
+                color: 0x673ab7,
+                author: {
+                    name: 'Select Music'
+                },
+                description: str,
+            };
+
+            /* MUSIC SELECTION MESSAGE */
+
+            message.channel.send({ embed: embedMessage });
 
             try {
+
+                 /* WHAIT 60 SECONDS FOR SELECTION MESSAGE */
+
                 message.channel.awaitMessages(
                     (msg) => {
                         return (msg.content > 0 && msg.content < 6) || msg.content === 0;
@@ -122,18 +138,22 @@ module.exports = {
                         url: songInfo.video_url,
                         thumbnail: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
                         author: songInfo.player_response.videoDetails.author,
+                        seconds: songInfo.length_seconds,
                     };
 
                     return await this.addToQueue(message, queue, song, false);
                 });
+
+                 /* WHAIT 60 SECONDS FOR SELECTION MESSAGE */
+
             } catch (error) {
                 console.log(error);
 
-                return message.channel.send('An error has occured when trying to get the video from youtube!');
+                return message.reply('An error has occured when trying to get the video from youtube!');
             }
         } catch (error) {
             console.log(error);
-            message.channel.send(error.message);
+            message.reply(error.message);
         }
     },
 
@@ -170,8 +190,43 @@ module.exports = {
         } else {
             serverQueue.songs.push(song);
 
-            if (!isPlaylist)
-                return message.channel.send(`**${song.title}** has been added to the queue!`);
+            if (!isPlaylist) {
+                //return message.channel.send(`**${song.title}** has been added to the queue!`);
+
+                /* CUSTON EMBED MESSAGE */
+
+                const date = new Date(0);
+                date.setSeconds(song.seconds);
+                const duration = date.toISOString().substr(11, 8);
+
+                const embedMessage = {
+                    color: 0x673ab7,
+                    title: song.title,
+                    url: song.url,
+                    author: {
+                        name: 'Added to the list'
+                    },
+                    thumbnail: {
+                        url: song.thumbnail,
+                    },
+                    fields: [
+                        {
+                            name: 'Author',
+                            value: song.author,
+                            inline: true,
+                        },
+                        {
+                            name: 'Duration',
+                            value: duration,
+                            inline: true,
+                        },
+                    ],
+                };
+
+                /* CUSTON EMBED MESSAGE */
+
+                return serverQueue.textChannel.send({ embed: embedMessage });
+            }
         }
     },
 
@@ -197,7 +252,12 @@ module.exports = {
             .on("error", error => console.error(error));
 
         dispatcher.setVolumeLogarithmic(serverQueue.volume);
+
         //serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+
+        const date = new Date(0);
+        date.setSeconds(song.seconds);
+        const duration = date.toISOString().substr(11, 8);
 
         const embedMessage = {
             color: 0x673ab7,
@@ -206,7 +266,6 @@ module.exports = {
             author: {
                 name: 'Now Playing'
             },
-            //description: 'Some description here',
             thumbnail: {
                 url: song.thumbnail,
             },
@@ -218,22 +277,10 @@ module.exports = {
                 },
                 {
                     name: 'Duration',
-                    value: '00:03:25',
+                    value: duration,
                     inline: true,
                 },
             ],
-            /*
-            image: {
-                url: 'https://i.imgur.com/wSTFkRM.png',
-            },
-            */
-            //timestamp: new Date(),
-            /*
-            footer: {
-                text: 'Some footer text here',
-                icon_url: 'https://i.imgur.com/wSTFkRM.png',
-            },
-            */
         };
 
         serverQueue.textChannel.send({ embed: embedMessage });
