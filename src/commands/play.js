@@ -3,8 +3,6 @@ const Youtube = require('simple-youtube-api');
 const ytdl = require('ytdl-core');
 const ffmpeg = require('ffmpeg');
 
-const prefix = process.env.PREFIX;
-
 const youtube = new Youtube(process.env.YOUTUBE_API_KEY);
 
 module.exports = {
@@ -41,7 +39,9 @@ module.exports = {
                     const songInfo = await ytdl.getInfo(video.url);
                     const song = {
                         title: songInfo.title,
-                        url: songInfo.video_url
+                        url: songInfo.video_url,
+                        thumbnail: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
+                        author: songInfo.player_response.videoDetails.author,
                     };
 
                     await this.addToQueue(message, queue, song, true);
@@ -70,7 +70,9 @@ module.exports = {
                 const songInfo = await ytdl.getInfo(query);
                 const song = {
                     title: songInfo.title,
-                    url: songInfo.video_url
+                    url: songInfo.video_url,
+                    thumbnail: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
+                    author: songInfo.player_response.videoDetails.author,
                 };
 
                 return await this.addToQueue(message, queue, song, false);
@@ -111,26 +113,19 @@ module.exports = {
                 ).then(async (res) => {
                     const videoIndex = parseInt(res.first().content);
 
-                    //if (res.first().content === 0)
-                    //return message.channel.send("Selection canceled!");
+                    if (res.first().content === 0)
+                        return message.channel.send("Selection canceled!");
 
                     const songInfo = await ytdl.getInfo(videos[videoIndex - 1].url);
                     const song = {
                         title: songInfo.title,
-                        url: songInfo.video_url
+                        url: songInfo.video_url,
+                        thumbnail: songInfo.player_response.videoDetails.thumbnail.thumbnails[0].url,
+                        author: songInfo.player_response.videoDetails.author,
                     };
 
                     return await this.addToQueue(message, queue, song, false);
                 });
-                /*
-                const songInfo = await ytdl.getInfo(videos[0].url);
-                const song = {
-                    title: songInfo.title,
-                    url: songInfo.video_url
-                };
-
-                return await this.addToQueue(message, queue, song, false);
-                */
             } catch (error) {
                 console.log(error);
 
@@ -202,6 +197,45 @@ module.exports = {
             .on("error", error => console.error(error));
 
         dispatcher.setVolumeLogarithmic(serverQueue.volume);
-        serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+        //serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+
+        const embedMessage = {
+            color: 0x673ab7,
+            title: song.title,
+            url: song.url,
+            author: {
+                name: 'Now Playing'
+            },
+            //description: 'Some description here',
+            thumbnail: {
+                url: song.thumbnail,
+            },
+            fields: [
+                {
+                    name: 'Author',
+                    value: song.author,
+                    inline: true,
+                },
+                {
+                    name: 'Duration',
+                    value: '00:03:25',
+                    inline: true,
+                },
+            ],
+            /*
+            image: {
+                url: 'https://i.imgur.com/wSTFkRM.png',
+            },
+            */
+            //timestamp: new Date(),
+            /*
+            footer: {
+                text: 'Some footer text here',
+                icon_url: 'https://i.imgur.com/wSTFkRM.png',
+            },
+            */
+        };
+
+        serverQueue.textChannel.send({ embed: embedMessage });
     }
 };
