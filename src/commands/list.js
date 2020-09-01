@@ -10,11 +10,17 @@ module.exports = {
         let str = '';
 
         for (let i = 0; i < serverQueue.songs.length; i++) {
-            str += `${i + 1}: ${serverQueue.songs[i].title} \n`;
+            str += `**[${i + 1}]**: ${serverQueue.songs[i].title} \n`;
         }
 
-        //const serverQueue.songs.map(song => song.name);
+        const embedMessage = {
+            color: 0x673ab7,
+            author: {
+                name: 'Playlist Musics'
+            },
+            description: str,
+        };
 
-        return message.channel.send("```" + str + "```");
+        message.channel.send({ embed: embedMessage });
     },
 };
