@@ -44,7 +44,7 @@ client.on('message', async message => {
     const command = args.shift().toLowerCase();
 
     if (!client.commands.has(command))
-        message.reply('Please enter a valid command!');
+        return message.reply('Please enter a valid command!');
 
     try {
         client.commands.get(command).execute(message, queue);
