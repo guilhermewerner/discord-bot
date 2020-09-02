@@ -47,7 +47,20 @@ client.on('message', async message => {
         return message.reply('Please enter a valid command!');
 
     try {
-        client.commands.get(command).execute(message, queue);
+        switch (command) {
+            case "help":
+                client.commands.get(command).execute(message);
+
+                break;
+            case "roll":
+                client.commands.get(command).execute(message);
+
+                break;
+            default:
+                client.commands.get(command).execute(message, queue);
+
+                break;
+        }
     } catch (error) {
         console.error(error);
         message.reply('There was an error trying to execute that command!');
