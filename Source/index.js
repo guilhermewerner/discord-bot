@@ -1,6 +1,6 @@
 require('dotenv/config');
 
-//pm2 start ./src/index.js --name "Discord"
+//pm2 start ./Source/index.js --name "Discord"
 
 const fs = require('fs');
 const Discord = require('discord.js');
