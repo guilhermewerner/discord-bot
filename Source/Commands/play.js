@@ -130,7 +130,6 @@ module.exports = {
                     const videoIndex = parseInt(response.first().content);
 
                     if (response.first().content === "0") {
-                        embedMessage.delete();
                         return message.reply("Selection canceled!");
                     }
 
