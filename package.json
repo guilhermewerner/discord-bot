@@ -6,9 +6,9 @@
     "author": "GuiNerd <guinerdinho@gmail.com>",
     "license": "MIT",
     "private": true,
-    "main": "src/index.js",
+    "main": "./Source/index.js",
     "scripts": {
-        "start": "node src/index.js"
+        "start": "node ./Source/index.js"
     },
     "dependencies": {
         "discord.js": "^12.2.0",
