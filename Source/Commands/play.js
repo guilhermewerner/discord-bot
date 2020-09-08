@@ -115,22 +115,24 @@ module.exports = {
 
             try {
 
-                 /* WHAIT 60 SECONDS FOR SELECTION MESSAGE */
+                /* WHAIT 20 SECONDS FOR SELECTION MESSAGE */
 
                 message.channel.awaitMessages(
                     (msg) => {
-                        return (msg.content > 0 && msg.content < 6) || msg.content === 0;
+                        return (msg.content > 0 && msg.content < 6) || msg.content === "0";
                     },
                     {
                         max: 1,
-                        time: 60000,
+                        time: 20000,
                         errors: ['time']
                     }
-                ).then(async (res) => {
-                    const videoIndex = parseInt(res.first().content);
+                ).then(async (response) => {
+                    const videoIndex = parseInt(response.first().content);
 
-                    if (res.first().content === 0)
-                        return message.channel.send("Selection canceled!");
+                    if (response.first().content === "0") {
+                        embedMessage.delete();
+                        return message.reply("Selection canceled!");
+                    }
 
                     const songInfo = await ytdl.getInfo(videos[videoIndex - 1].url);
                     const song = {
@@ -144,7 +146,7 @@ module.exports = {
                     return await this.addToQueue(message, queue, song, false);
                 });
 
-                 /* WHAIT 60 SECONDS FOR SELECTION MESSAGE */
+                /* WHAIT 20 SECONDS FOR SELECTION MESSAGE */
 
             } catch (error) {
                 console.log(error);
