@@ -1,6 +1,7 @@
 module.exports = {
     name: 'resume',
     description: 'Resume queue.',
+    aliases: [ 'unpause' ],
     execute(message, queue) {
         const serverQueue = queue.get(message.guild.id);
 

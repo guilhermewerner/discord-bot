@@ -1,6 +1,7 @@
 module.exports = {
     name: 'roll',
     description: 'Roll a dice',
+    aliases: [],
     execute(message) {
         const query = message.content.split(/ (.*)/)[1];
 

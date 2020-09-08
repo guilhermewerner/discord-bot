@@ -15,22 +15,22 @@ module.exports = {
             const voiceChannel = message.member.voice.channel;
 
             if (!voiceChannel)
-                return message.channel.send("You need to be in a voice channel to play music!");
+                return message.reply("You need to be in a voice channel to play music!");
 
             const permissions = voiceChannel.permissionsFor(message.client.user);
 
             if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
-                return message.channel.send("I need the permissions to join and speak in your voice channel!");
+                return message.reply("I need the permissions to join and speak in your voice channel!");
             }
 
             // If the user entered a youtube playlist url
             if (query.match(/^(?!.*\?.*\bv=)https:\/\/www\.youtube\.com\/.*\?.*\blist=.*$/)) {
                 const playlist = await youtube.getPlaylist(query).catch(function () {
-                    return message.channel.send('Playlist is either private or it does not exist!');
+                    return message.reply('Playlist is either private or it does not exist!');
                 });
 
                 const videos = await playlist.getVideos(10).catch(function () {
-                    return message.channel.send('There was a problem getting one of the videos in the playlist!');
+                    return message.reply('There was a problem getting one of the videos in the playlist!');
                 });
 
                 for (let i = 0; i < videos.length; i++) {

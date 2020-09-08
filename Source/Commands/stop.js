@@ -1,6 +1,7 @@
 module.exports = {
     name: 'stop',
     description: 'Stop current queue.',
+    aliases: [],
     execute(message, queue) {
         const serverQueue = queue.get(message.guild.id);
 
