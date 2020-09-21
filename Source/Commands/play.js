@@ -23,6 +23,10 @@ module.exports = {
                 return message.reply("I need the permissions to join and speak in your voice channel!");
             }
 
+            if (!query){
+                return message.reply("You need to provide a video name or url!");
+            }
+
             // If the user entered a youtube playlist url
             if (query.match(/^(?!.*\?.*\bv=)https:\/\/www\.youtube\.com\/.*\?.*\blist=.*$/)) {
                 const playlist = await youtube.getPlaylist(query).catch(function () {
