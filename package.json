@@ -3,7 +3,7 @@
     "version": "1.1.0",
     "description": "Discord Bot",
     "repository": "https://github.com/GuilhermeWerner/DiscordBot",
-    "author": "GuiNerd <guinerdinho@gmail.com>",
+    "author": "Guilherme Werner <guilhermeqwerner@gmail.com>",
     "license": "MIT",
     "private": true,
     "main": "./Source/index.js",
