@@ -2,7 +2,7 @@ require('dotenv/config');
 
 //pm2 start ./Source/index.js --name "Discord"
 
-const fs = require('fs');
+const Fs = require('fs');
 const Discord = require('discord.js');
 
 const prefix = process.env.PREFIX;
@@ -11,7 +11,7 @@ const token = process.env.TOKEN;
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
-const commandFiles = fs.readdirSync('./Source/Commands').filter(file => file.endsWith('.js'));
+const commandFiles = Fs.readdirSync('./Source/Commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
     const command = require(`./Commands/${file}`);

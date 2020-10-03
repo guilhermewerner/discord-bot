@@ -28,7 +28,7 @@ module.exports = {
             }
 
             // If the user entered a youtube playlist url
-            if (query.match(/^(?!.*\?.*\bv=)https:\/\/www\.youtube\.com\/.*\?.*\blist=.*$/)) {
+            if (query.match(/^(?!.*\?.*\bv=)https:\/\/(www|music)\.youtube\.com\/.*\?.*\blist=.*$/)) {
                 const playlist = await youtube.getPlaylist(query).catch(function () {
                     return message.reply('Playlist is either private or it does not exist!');
                 });
@@ -56,7 +56,7 @@ module.exports = {
             }
 
             // If the user entered a youtube video url
-            if (query.match(/^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/)) {
+            if (query.match(/^(http(s)?:\/\/)?((www|music).)?youtu(be|.be)?(\.com)?\/.+/)) {
                 /*
                 query = query
                     .replace(/(>|<)/gi, '')
