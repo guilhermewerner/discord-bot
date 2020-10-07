@@ -1,0 +1,16 @@
+
+node_modules
+
+.git
+.github
+
+Scripts
+Tests
+
+.editorconfig
+.env.example
+.gitattributes
+.gitignore
+
+*.md
+*.code-workspace
