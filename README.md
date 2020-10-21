@@ -12,7 +12,7 @@ Written in JavaScript, using discord.js library and the YouTube API
 
 After clone the repository, install the dependencies using:
 
-`npm install`
+`npm install` or `yarn install`
 
 ### Configuration
 
@@ -26,7 +26,7 @@ YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY
 
 ### Starting the Bot
 
-`npm start`
+`npm start` or `yarn start`
 
 ### Publishing
 
